@@ -1,0 +1,106 @@
+<main class="main">
+  <div class="custom-container">
+    <div class="custom-inputs">
+      <div class="custom-select">
+        <select [formControl]="selectedCustomer">
+          <option *ngFor="let customer of uniqueCustomers" [value]="customer.customerNumber">
+            {{ customer.customerNumber }} - {{ customer.customerName }}
+          </option>
+        </select>
+        <button (click)="loadOrdersForCustomer()">Mostrar ordenes</button>
+      </div>
+
+      <div class="custom-select-orders" *ngIf="orders.length > 0">
+        <select [formControl]="selectedOrder">
+          <option *ngFor="let order of orders" [value]="order.orderNumber">
+            Orden Numero {{ order.orderNumber }}
+          </option>
+        </select>
+        <button (click)="loadCustomerInfo()">Mostrar customer</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="customer-info">
+    <h2>Informacion</h2>
+    <div class="info-container" *ngIf="selectedCustomerDetail">
+      <div class="info-detail">
+        <p>CustomerNumber:</p>
+        <span>{{ selectedCustomerDetail.customerNumber }}</span>
+      </div>
+
+      <div class="info-detail">
+        <p>CustomerName:</p>
+        <span>{{ selectedCustomerDetail.customerName }}</span>
+      </div>
+
+      <div class="info-detail">
+        <p>Phone:</p>
+        <span>{{ selectedCustomerDetail.phone }}</span>
+      </div>
+
+      <div class="info-detail">
+        <p>OrderNumber:</p>
+        <span>{{selectedCustomerDetail.orderNumber }}</span>
+      </div>
+
+      <div class="info-detail">
+        <p>OrderDate:</p>
+        <span>{{selectedCustomerDetail.orderDate }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="employee-info">
+    <h2>Informacion del empleado</h2>
+    <div class="info-container" *ngIf="selectedCustomerDetail">
+      <div class="info-detail">
+        <p>Employe Number:</p>
+        <span>{{ selectedCustomerEmploye.salesRepEmployeeNumber }}</span>
+      </div>
+
+      <div class="info-detail">
+        <p>Employe Name:</p>
+        <span>{{ selectedCustomerEmploye.lastName }} {{ selectedCustomerEmploye.firstName }}</span>
+      </div>
+
+      <div class="info-detail">
+        <p>Email:</p>
+        <span>{{ selectedCustomerEmploye.email }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="order-details">
+    <h2>Datalles de la orden</h2>
+    <table class="table table-striped"  *ngIf="selectedCustomerDetail">
+      <thead>
+          <tr>
+              <th>N°Orden</th>
+              <th>codProducto</th>
+              <th>CantOrdenada</th>
+              <th>priceEach</th>
+              <th>orderLineNumber</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let detail of selectedOrderDetails">
+              <td>{{detail.orderNumber}}</td>
+              <td>{{detail.productCode}}</td>
+              <td>{{detail.quantityOrdered}}</td>
+              <td>{{detail.priceEach}}</td>
+              <td>{{detail.orderLineNumber}}</td>
+          </tr>
+      </tbody>
+      <tfoot>
+          <tr>
+            <th>N°Orden</th>
+            <th>codProducto</th>
+            <th>CantOrdenada</th>
+            <th>priceEach</th>
+            <th>orderLineNumber</th>
+          </tr>
+      </tfoot>
+  </table>
+  </div>
+</main>
